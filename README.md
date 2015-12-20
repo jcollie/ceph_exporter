@@ -52,12 +52,14 @@ optional arguments:
   --keyring KEYRING     Name of the file that contains key for authentication
                         with the Ceph cluster, default is
                         `/etc/ceph/ceph.client.admin.keyring`
-  --endpoint ENDPOINT   [Twisted server endpoint specifier](https://twistedmatrix.com/documents/15.5.0/core/howto/endpoints.html#servers), default is
+  --endpoint ENDPOINT   Twisted server endpoint specifier, default is
                         `tcp:9999`
   --executable EXECUTABLE
                         Path to the Ceph command line client executable,
                         default is `/usr/bin/ceph`
 ```
+
+Twisted server endpoint specifiers are described [here](https://twistedmatrix.com/documents/15.5.0/core/howto/endpoints.html#servers).
 
 Multiple Ceph clusters could be monitored by copying the `systemd`
 service file to a new name and pointing the exporter to different
