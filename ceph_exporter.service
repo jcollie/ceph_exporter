@@ -1,0 +1,11 @@
+[Unit]
+Description=Prometheus Ceph Exporter
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/ceph_exporter
+ExecStart=/opt/ceph_exporter/bin/python /opt/ceph_exporter/bin/ceph_exporter.py
+SyslogIdentifier=ceph_exporter
+
+[Install]
+WantedBy=multi-user.target
