@@ -791,11 +791,11 @@ Metric('ceph_pool_size', None, 'gauge')
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('--config', default='/etc/ceph/ceph.conf')
-parser.add_argument('--name', default='client.admin')
-parser.add_argument('--keyring', default='/etc/ceph/ceph.client.admin.keyring')
-parser.add_argument('--endpoint', default='tcp:9999')
-parser.add_argument('--executable', default='/usr/bin/ceph')
+parser.add_argument('--config', default='/etc/ceph/ceph.conf', help="Ceph config file location, default is `/etc/ceph/ceph.conf`")
+parser.add_argument('--name', default='client.admin', help="Ceph client name used to authenticate to the Ceph cluster, default is `client.admin`")
+parser.add_argument('--keyring', default='/etc/ceph/ceph.client.admin.keyring', help="Name of the file that contains key for authentication with the Ceph cluster, default is `/etc/ceph/ceph.client.admin.keyring`")
+parser.add_argument('--endpoint', default='tcp:9999', help="Twisted server endpoint specifier, default is `tcp:9999`")
+parser.add_argument('--executable', default='/usr/bin/ceph', help="Path to the Ceph command line client executable, default is `/usr/bin/ceph`")
 
 options = parser.parse_args()
 
