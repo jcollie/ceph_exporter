@@ -48,7 +48,7 @@ class Sample(object):
             result += '{{{:s}}}'.format(','.join(map(lambda l: l.fmt(), self.labels)))
         result += ' {}'.format(self.value)
         if self.timestamp is not None:
-            result += ' {:d}'.format(round(self.timestamp.float_timestamp * 1000))
+            result += ' {:d}'.format(int(round(self.timestamp.float_timestamp * 1000)))
         return result
 
     def isExpired(self, now):
