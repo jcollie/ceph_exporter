@@ -50,7 +50,7 @@ optional arguments:
                         with the Ceph cluster, default is
                         `/etc/ceph/ceph.client.admin.keyring`
   --endpoint ENDPOINT   Twisted server endpoint specifier, default is
-                        `tcp:9999`
+                        `tcp:9192`
   --executable EXECUTABLE
                         Path to the Ceph command line client executable,
                         default is `/usr/bin/ceph`
