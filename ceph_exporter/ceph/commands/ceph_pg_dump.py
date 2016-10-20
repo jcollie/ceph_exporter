@@ -65,10 +65,14 @@ class CephPgDump(Ceph):
                           ('num_object_clones', 'clones'),
                           ('num_object_copies', 'copies'),
                           ('num_objects_missing_on_primary', 'missing_on_primary'),
+                          ('num_objects_missing', 'missing'),
                           ('num_objects_degraded', 'degraded'),
                           ('num_objects_misplaced', 'misplaced'),
                           ('num_objects_unfound', 'unfound'),
-                          ('num_objects_dirty', 'dirty')]:
+                          ('num_objects_dirty', 'dirty'),
+                          ('num_flush', 'flush'),
+                          ('num_evict', 'evict'),
+                          ('num_promote', 'promote')]:
 
             Sample('ceph_objects',
                    [Label('fsid', self.fsid),
@@ -232,4 +236,25 @@ class CephPgDump(Ceph):
                         Label('pgid', pg['pgid']),
                         Label('state', pg['state'])],
                        1,
+                       timestamp)
+
+        for pool in data['pool_stats']:
+            for key, stat in [('num_objects', 'objects'),
+                              ('num_object_clones', 'clones'),
+                              ('num_object_copies', 'copies'),
+                              ('num_objects_missing_on_primary', 'missing_on_primary'),
+                              ('num_objects_missing', 'missing'),
+                              ('num_objects_degraded', 'degraded'),
+                              ('num_objects_misplaced', 'misplaced'),
+                              ('num_objects_unfound', 'unfound'),
+                              ('num_objects_dirty', 'dirty'),
+                              ('num_flush', 'flush'),
+                              ('num_evict', 'evict'),
+                              ('num_promote', 'promote')]:
+                Sample('ceph_objects',
+                       [Label('fsid', self.fsid),
+                        Label('scope', 'pool'),
+                        Label('pool', '{:d}'.format(pool['poolid'])),
+                        Label('type', stat)],
+                       pool['stat_sum'][key],
                        timestamp)
