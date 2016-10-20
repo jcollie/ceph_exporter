@@ -46,6 +46,14 @@ class Main(object):
 
         self.fsid = config['global']['fsid']
 
+        self.server = None
+        self.ceph_df = None
+        self.ceph_mds_dump = None
+        self.ceph_osd_dump = None
+        self.ceph_pg_dump = None
+        self.ceph_quorum_status = None
+        self.ceph_status = None
+        
         reactor.callWhenRunning(self.start)
 
     def start(self):
