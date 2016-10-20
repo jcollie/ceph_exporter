@@ -45,7 +45,8 @@ class CephJsonProtocol(ProcessProtocol):
         self.out_data = []
         self.err_data = []
         self.start_time = None
-
+        self.end_time = None
+        
     def connectionMade(self):
         self.start_time = arrow.now()
         self.transport.closeStdin()
@@ -76,7 +77,7 @@ class CephJsonProtocol(ProcessProtocol):
 
         if isinstance(status.value, ProcessTerminated):
             self.log.debug('process ended {r:}', r = status.value)
-            self.log.debug('{e:}', e = (b''.join(err_data)).decode('utf-8'))
+            self.log.debug('{e:}', e = (b''.join(self.err_data)).decode('utf-8'))
             self.finished.callback(None)
             return
 
