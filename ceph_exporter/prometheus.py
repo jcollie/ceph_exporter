@@ -27,7 +27,7 @@ from twisted.logger import Logger
 metrics = {}
 
 def escape(value):
-    return value.replace('\\', '\\\\').replace('"', '\\"').replace('\n','\\n')
+    return value.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
 
 class Label(object):
     def __init__(self, name, value):
