@@ -78,7 +78,7 @@ def main():
                         default='/etc/ceph/ceph.client.admin.keyring',
                         help="Name of the file that contains key for authentication with the Ceph cluster, default is `/etc/ceph/ceph.client.admin.keyring`")
     parser.add_argument('--endpoint',
-                        default='tcp:9999',
+                        default='tcp:9192',
                         help="Twisted server endpoint specifier, default is `tcp:9192`")
     parser.add_argument('--executable',
                         default='/usr/bin/ceph',
