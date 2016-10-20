@@ -16,17 +16,14 @@ nothing preventing that.  The server running the exporter service will
 also need to be accessible from the Prometheus server.
 
 The exporter service is developed and tested using Python 3.  Running
-the service with Python2 is untested.
+the service with Python 2 is untested.
 
 ## Installation
 
 ```bash
-git clone https://github.com/jcollie/ceph_exporter.git
-cd ceph_exporter
 virtualenv --python=/usr/bin/python3 /opt/ceph_exporter
-/opt/ceph_exporter/bin/pip install --requirement requirements.txt
-cp ceph_exporter.py /opt/ceph_exporter/bin
-cp ceph_exporter.service /etc/systemd/system
+/opt/ceph_exporter/bin/pip install git+https://github.com/jcollie/ceph_exporter.git
+cp /opt/ceph_exporter/etc/ceph_exporter.service /etc/systemd/system
 systemctl daemon-reload
 systemctl enable ceph_exporter
 systemctl start ceph_exporter
@@ -76,5 +73,5 @@ scrape_configs:
     scrape_timeout: 10s
     target_groups:
       - targets:
-        - 'localhost:9999'
+        - 'localhost:9192'
 ```

@@ -1,10 +1,11 @@
 [Unit]
-Description=Prometheus Ceph Exporter
+Description=Prometheus exporter for Ceph
+Documentation=https://github.com/jcollie/ceph_exporter
 
 [Service]
 Type=simple
 WorkingDirectory=/opt/ceph_exporter
-ExecStart=/opt/ceph_exporter/bin/python /opt/ceph_exporter/bin/ceph_exporter.py
+ExecStart=/opt/ceph_exporter/bin/ceph_exporter
 SyslogIdentifier=ceph_exporter
 
 [Install]
