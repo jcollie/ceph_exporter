@@ -30,7 +30,7 @@ setup(name = 'ceph_exporter',
                   'ceph_exporter.ceph',
                   'ceph_exporter.ceph.commands',
                   'ceph_exporter.ceph.metrics'],
-      data_files = [('etc', ['ceph_exporter.service'])]
+      data_files = [('etc', ['ceph_exporter.service'])],
       entry_points = {
           'console_scripts': ['ceph_exporter=ceph_exporter.main:main']
       },
