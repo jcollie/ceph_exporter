@@ -27,6 +27,7 @@ from twisted.logger import globalLogBeginner
 from twisted.logger import textFileLogObserver
 from twisted.logger import Logger
 
+from .prometheus import MetricManager
 from .server import Server
 from .ceph.commands.ceph_df import CephDf
 from .ceph.commands.ceph_mds_dump import CephMdsDump
@@ -53,17 +54,34 @@ class Main(object):
         self.ceph_pg_dump = None
         self.ceph_quorum_status = None
         self.ceph_status = None
-        
+        self.metric_manager = None
+
         reactor.callWhenRunning(self.start)
 
     def start(self):
-        self.server             = Server(self.options)
-        self.ceph_df            = CephDf(self.fsid, self.options)
-        self.ceph_mds_dump      = CephMdsDump(self.fsid, self.options)
-        self.ceph_osd_dump      = CephOsdDump(self.fsid, self.options)
-        self.ceph_pg_dump       = CephPgDump(self.fsid, self.options)
+        self.server = Server(self.options)
+        self.server.start()
+
+        self.ceph_df = CephDf(self.fsid, self.options)
+        self.ceph_df.start()
+
+        self.ceph_mds_dump = CephMdsDump(self.fsid, self.options)
+        self.ceph_mds_dump.start()
+
+        self.ceph_osd_dump = CephOsdDump(self.fsid, self.options)
+        self.ceph_osd_dump.start()
+
+        self.ceph_pg_dump = CephPgDump(self.fsid, self.options)
+        self.ceph_pg_dump.start()
+
         self.ceph_quorum_status = CephQuorumStatus(self.fsid, self.options)
-        self.ceph_status        = CephStatus(self.fsid, self.options)
+        self.ceph_quorum_status.start()
+
+        self.ceph_status = CephStatus(self.fsid, self.options)
+        self.ceph_status.start()
+
+        self.metric_manager = MetricManager()
+        self.metric_manager.start()
 
 def main():
     parser = argparse.ArgumentParser()

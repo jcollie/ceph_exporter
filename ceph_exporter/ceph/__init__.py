@@ -153,6 +153,7 @@ class Ceph(object):
         self.fsid = fsid
         self.options = options
 
+    def start(self):
         reactor.callWhenRunning(self.getData)
 
     def buildCommand(self):

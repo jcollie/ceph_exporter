@@ -59,6 +59,8 @@ class Server(object):
         self.root.putChild(b'metrics', self.metrics)
         self.site = Site(self.root)
         self.site.noisy = False
+        self.endpoint = None
 
+    def start(self):
         self.endpoint = endpoints.serverFromString(reactor, self.options.endpoint)
         self.endpoint.listen(self.site)

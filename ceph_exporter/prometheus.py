@@ -39,6 +39,7 @@ class Label(object):
 
 class Sample(object):
     log = Logger()
+
     def __init__(self, name, labels, value, timestamp):
         global metrics
         self.labels = labels
@@ -71,14 +72,10 @@ class Metric(object):
         self.help = help
         self.type = type
         self.samples = []
-        reactor.callLater(30.0, self.expireSamples)
 
         metrics[self.name] = self
 
-    def expireSamples(self):
-        reactor.callLater(30.0, self.expireSamples)
-
-        now = arrow.now()
+    def expireSamples(self, now):
         self.samples = [sample for sample in self.samples if sample.isExpired(now)]
 
     def fmt(self):
@@ -95,3 +92,15 @@ class Metric(object):
 
     def addSample(self, sample):
         self.samples.append(sample)
+
+class MetricManager(object):
+    def __init__(self):
+        pass
+
+    def start(self):
+        reactor.callLater(30.0, self.expireSamples)
+
+    def expireSamples(self):
+        now = arrow.now()
+        for metric in metrics.values():
+            metric.expireSamples(now)
