@@ -37,6 +37,18 @@ class Label(object):
     def fmt(self):
         return '{}="{}"'.format(self.name, escape(self.value))
 
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.name == other.name and self.value == other.value
+
+        return NotImplemented
+
+    def __ne__(self, other):
+        if isinstance(other, self.__class__):
+            return not self.__eq__(other)
+
+        return NotImplemented
+
 class Sample(object):
     log = Logger()
 
